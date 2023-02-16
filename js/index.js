@@ -33,7 +33,6 @@ const productModal = {
       if(this.id){
         axios.get(`${apiUrl}/api/${apiPath}/product/${this.id}`)
             .then( res => {
-              // console.log("單一產品: ", res.data.product);
               this.tempProduct = res.data.product;
               this.$emit('clearLoadingItem');
               this.myModal.show();
@@ -51,12 +50,11 @@ const productModal = {
   },
   methods: {
     closeModal() {
-      this.qty = 1;
+      this.qty = 1; // 重設數量為 1
       this.myModal.hide();
     },
   },
   mounted() {
-    // console.log(this.$refs);
     this.myModal = new bootstrap.Modal(this.$refs.modal);
     this.$refs.modal.addEventListener('hidden.bs.modal', event => {
       // 由於 id 是 props 進來的，為單向數據流，可emit 叫外層改
@@ -85,7 +83,6 @@ const app = createApp({
     getProducts() {
       axios.get(`${apiUrl}/api/${apiPath}/products/all`)
           .then( res => {
-            console.log("產品列表: ", res);
             this.products = res.data.products;
           })
           .catch( err => {
@@ -109,7 +106,6 @@ const app = createApp({
       this.loadingItem = product_id;
       axios.post(`${apiUrl}/api/${apiPath}/cart`, { data })
           .then( res => {
-            // console.log("加入購物車: ", res.data);
             this.$refs.productModal.closeModal();
             this.getCarts();
             this.loadingItem = '';
@@ -133,7 +129,6 @@ const app = createApp({
     getCarts() {
       axios.get(`${apiUrl}/api/${apiPath}/cart`)
           .then( res => {
-            console.log("購物車: ", res.data);
             this.cart = res.data.data;
           })
           .catch( err => {
@@ -155,7 +150,6 @@ const app = createApp({
       this.loadingItem = item.id;
       axios.put(`${apiUrl}/api/${apiPath}/cart/${item.id}`, {data})
           .then( res => {
-            // console.log("更新購物車: ", res.data);
             this.getCarts();
             this.loadingItem = ''
             Swal.fire({
@@ -179,7 +173,6 @@ const app = createApp({
       this.loadingItem = item.id;
       axios.delete(`${apiUrl}/api/${apiPath}/cart/${item.id}`)
           .then( res => {
-            // console.log("刪除購物車: ", res.data);
             this.getCarts();
             this.loadingItem = '';
             Swal.fire({
@@ -202,7 +195,6 @@ const app = createApp({
     clearAll() {
       axios.delete(`${apiUrl}/api/${apiPath}/carts`)
           .then( res => {
-            // console.log("刪除(全部)購物車: ", res.data);
             this.getCarts();
             Swal.fire({
               icon: "success",
@@ -237,7 +229,6 @@ const app = createApp({
       }
       axios.post(`${apiUrl}/api/${apiPath}/order`, { data })
           .then( res => {
-            // console.log("結帳: ", res.data);
             this.getCarts();
             Swal.fire({
               icon: "success",
