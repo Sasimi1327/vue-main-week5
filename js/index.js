@@ -39,13 +39,19 @@ const productModal = {
               this.myModal.show();
             })
             .catch( err => {
-              console.log(err);
+              Swal.fire({
+                icon: "error",
+                title: `錯誤 ${err.status}`,
+                text: err.data.message,
+                confirmButtonText: "OK",
+              });
             })
       }
     }
   },
   methods: {
     closeModal() {
+      this.qty = 1;
       this.myModal.hide();
     },
   },
@@ -79,11 +85,16 @@ const app = createApp({
     getProducts() {
       axios.get(`${apiUrl}/api/${apiPath}/products/all`)
           .then( res => {
-            // console.log("產品列表: ", res.data.products);
+            console.log("產品列表: ", res);
             this.products = res.data.products;
           })
           .catch( err => {
-            console.log(err);
+            Swal.fire({
+              icon: "error",
+              title: `錯誤 ${err.status}`,
+              text: err.data.message,
+              confirmButtonText: "OK",
+            });
           })
     },
     openModal(id) {
@@ -102,20 +113,36 @@ const app = createApp({
             this.$refs.productModal.closeModal();
             this.getCarts();
             this.loadingItem = '';
-            alert(res.data.message);
+            Swal.fire({
+              icon: "success",
+              title: `${res.status === 200 ? "成功" : "失敗"}`,
+              text: res.data.message,
+              confirmButtonText: "OK",
+            });
+            // alert(res.data.message);
           })
           .catch( err => {
-            console.log(err);
+            Swal.fire({
+              icon: "error",
+              title: `錯誤 ${err.status}`,
+              text: err.data.message,
+              confirmButtonText: "OK",
+            });
           })
     },
     getCarts() {
       axios.get(`${apiUrl}/api/${apiPath}/cart`)
           .then( res => {
-            // console.log("購物車: ", res.data);
+            console.log("購物車: ", res.data);
             this.cart = res.data.data;
           })
           .catch( err => {
-            console.log(err);
+            Swal.fire({
+              icon: "error",
+              title: `錯誤 ${err.status}`,
+              text: err.data.message,
+              confirmButtonText: "OK",
+            });
           })
     },
     // product_id: 產品的 ID
@@ -131,10 +158,21 @@ const app = createApp({
             // console.log("更新購物車: ", res.data);
             this.getCarts();
             this.loadingItem = ''
-            alert(res.data.message);
+            Swal.fire({
+              icon: "success",
+              title: `${res.status === 200 ? "成功" : "失敗"}`,
+              text: res.data.message,
+              confirmButtonText: "OK",
+            });
+            // alert(res.data.message);
           })
           .catch( err => {
-            console.log(err);
+            Swal.fire({
+              icon: "error",
+              title: `錯誤 ${err.status}`,
+              text: err.data.message,
+              confirmButtonText: "OK",
+            });
           })
     },
     deleteCartItem(item) {
@@ -144,10 +182,21 @@ const app = createApp({
             // console.log("刪除購物車: ", res.data);
             this.getCarts();
             this.loadingItem = '';
-            alert(res.data.message);
+            Swal.fire({
+              icon: "success",
+              title: `${res.status === 200 ? "成功" : "失敗"}`,
+              text: res.data.message,
+              confirmButtonText: "OK",
+            });
+            // alert(res.data.message);
           })
           .catch( err => {
-            console.log(err);
+            Swal.fire({
+              icon: "error",
+              title: `錯誤 ${err.status}`,
+              text: err.data.message,
+              confirmButtonText: "OK",
+            });
           })
     },
     clearAll() {
@@ -155,10 +204,21 @@ const app = createApp({
           .then( res => {
             // console.log("刪除(全部)購物車: ", res.data);
             this.getCarts();
-            alert(res.data.message);
+            Swal.fire({
+              icon: "success",
+              title: `${res.status === 200 ? "成功" : "失敗"}`,
+              text: res.data.message,
+              confirmButtonText: "OK",
+            });
+            // alert(res.data.message);
           })
           .catch( err => {
-            console.log(err);
+            Swal.fire({
+              icon: "error",
+              title: `錯誤 ${err.status}`,
+              text: err.data.message,
+              confirmButtonText: "OK",
+            });
           })
     },
     clearLoadingItem() {
@@ -179,13 +239,24 @@ const app = createApp({
           .then( res => {
             // console.log("結帳: ", res.data);
             this.getCarts();
-            alert(res.data.message);
+            Swal.fire({
+              icon: "success",
+              title: `${res.status === 200 ? "成功" : "失敗"}`,
+              text: res.data.message,
+              confirmButtonText: "OK",
+            });
+            // alert(res.data.message);
             //清空表單 input
             this.user.message = '';
             this.$refs.form.resetForm();
           })
           .catch( err => {
-            console.log(err);
+            Swal.fire({
+              icon: "error",
+              title: `錯誤 ${err.status}`,
+              text: err.data.message,
+              confirmButtonText: "OK",
+            });
           })
 
     },

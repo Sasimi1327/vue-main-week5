@@ -76,18 +76,23 @@
             </tr>
           </tbody>
         </table>
+
         <!-- 購物車列表 -->
         <div class="text-end">
           <button class="btn btn-outline-danger" type="button"
+          :disabled="!cart?.carts?.length"
           @click="clearAll()">清空購物車</button>
         </div>
-        <table class="table align-middle">
+        
+        <h3 class="text-center" v-if="!cart?.carts?.length">目前購物車沒有商品</h3>
+        <table v-else class="table align-middle">
           <thead>
             <tr>
               <th></th>
-              <th>品名</th>
-              <th style="width: 150px">數量/單位</th>
-              <th>單價</th>
+              <th class="text-center">品名</th>
+              <th class="text-center" style="width: 150px">數量/單位</th>
+              <th class="text-center">單價</th>
+              <th class="text-center">小計</th>
             </tr>
           </thead>
           <tbody>
@@ -115,6 +120,9 @@
                   </div>
                 </td>
                 <td class="text-end">
+                  {{ item.product.price }}
+                </td>
+                <td class="text-end">
                   {{ item.total }}
                 </td>
               </tr>
@@ -122,11 +130,11 @@
           </tbody>
           <tfoot>
             <tr>
-              <td colspan="3" class="text-end">總計</td>
+              <td colspan="4" class="text-end">總計</td>
               <td class="text-end">{{ cart.total }}</td>
             </tr>
             <tr>
-              <td colspan="3" class="text-end text-success">折扣價</td>
+              <td colspan="4" class="text-end text-success">折扣價</td>
               <td class="text-end text-success">{{ cart.final_total }}</td>
             </tr>
           </tfoot>
@@ -257,6 +265,7 @@
     </div>
   </script>
   
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src='https://cdnjs.cloudflare.com/ajax/libs/axios/0.9.1/axios.min.js'
           integrity='sha512-Xk3wWei2TGrsh9kDSBKUMIjw/86sLUvhtnv9f7fOuIwhhiUTKz8szkWkzHthrM5Bb3Bu9idSzkxOrkzhcneuiw=='
           crossorigin='anonymous'></script>
